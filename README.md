@@ -8,7 +8,7 @@ Record spending with time,purpose etc.
 
 A *bulleted* list:
 - item 1 Record the adding and retrieving of money with the specific time and purpose
-- item 2 Help people who want to balance their spending (开销) and control budget more reasonably
+- item 2 Help people who want to balance their spending and control budget more reasonably
 - item 3 Show summaries like monthly total, category breakdown, and budget warning when overspending
 
 An example of text with **bold** and *italic* fonts.  
