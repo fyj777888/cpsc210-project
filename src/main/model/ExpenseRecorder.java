@@ -4,14 +4,16 @@ import java.util.ArrayList;
 
 public class ExpenseRecorder {
     private ArrayList<Expense> expenseRecorder;
-    public ExpenseRecorder(){
+
+    public ExpenseRecorder() {
         expenseRecorder = new ArrayList<Expense>();
     }
 
-    public void addExpense(Expense e){
+    public void addExpense(Expense e) {
         expenseRecorder.add(e);
     }
-    public ArrayList<Expense> getExpenses(){
+
+    public ArrayList<Expense> getExpenses() {
         return expenseRecorder;
     }
 

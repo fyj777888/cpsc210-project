@@ -55,117 +55,142 @@ public class FinanceTrackerApp {
     }
 
     private void makeOptions(int option) {
-        int values;
-        String purpose;
         if (option == 1) {
-            while (true) {
-                System.out.println("How much you spent");
-                if (sc.hasNextInt()) {
-                    values = sc.nextInt();
-                    break;
-                } else {
-                    System.out.println("Please input correct values");
-                    sc.nextLine();
-                }
-            }
-            System.out.println("What's your purpose");
-            purpose = sc.next();
-            System.out.println("Choose one of the category:1) food 2) rental 3) entertainment 4) others");
-            while (true) {
-                if (sc.hasNextInt()) {
-                    int choice = sc.nextInt();
-                    if (choice >= 1 && choice <= 4) {
-                        if (choice == 1) {
-                            category = "food";
-                        } else if (choice == 2) {
-                            category = "rental";
-                        } else if (choice == 3) {
-                            category = "entertainment";
-                        } else {
-                            category = "others";
-                        }
-                        break;
-                    } else {
-                        System.out.println("Please input correct choice");
-                        sc.nextLine();
-                    }
-                }
-            }
-            expenseRecorder.addExpense(new Expense(values, purpose, category));
+            addExpense();
         } else if (option == 2) {
             System.out.println(expenseRecorder.getExpenses());
         } else if (option == 3) {
             System.out.println("Balance:" + financeTracker.getValues());
             System.out.println("Loans:" + financeTracker.getLoans());
         } else if (option == 4) {
-            System.out.println("How much you want to borrow:");
-            while (true) {
-                if (sc.hasNextInt()) {
-                    int loans = sc.nextInt();
-                    if (0 < loans && loans <= 1000000) {
-                        financeTracker.borrowMoney(loans);
-                        break;
-                    } else {
-                        System.out.println("Please input an integer between 1 and 1000000");
-                        sc.nextLine();
-                    }
-                }
-            }
+            borrowLoan();
         } else if (option == 5) {
-            System.out.println("How much you want to repay:");
-            while (true) {
-                if (sc.hasNextInt()) {
-                    int repays = sc.nextInt();
-                    if (0 < repays && repays <= financeTracker.getLoans()) {
-                        financeTracker.repayMoney(repays);
-                        break;
-                    } else {
-                        System.out.println("Please input an integer between 1 and loans");
-                        sc.nextLine();
-                    }
-                }
+            repayLoan();
+        } else if (option == 6) {
+            listSpent();
+        }
+    }
 
+    public void addExpense() {
+        int values;
+        String purpose;
+        while (true) {
+            System.out.println("How much you spent");
+            if (sc.hasNextInt()) {
+                values = sc.nextInt();
+                financeTracker.decreaseValues(values);
+                break;
+            } else {
+                System.out.println("Please input correct values");
+                sc.nextLine();
+            }
+        }
+        System.out.println("What's your purpose");
+        purpose = sc.next();
+        System.out.println("Choose one of the category:1) food 2) rental 3) entertainment 4) others");
+        addCategory();
+        expenseRecorder.addExpense(new Expense(values, purpose, category));
+    }
+
+    public void addCategory() {
+        while (true) {
+            if (sc.hasNextInt()) {
+                int choice = sc.nextInt();
+                if (choice >= 1 && choice <= 4) {
+                    if (choice == 1) {
+                        category = "food";
+                    } else if (choice == 2) {
+                        category = "rental";
+                    } else if (choice == 3) {
+                        category = "entertainment";
+                    } else {
+                        category = "others";
+                    }
+                    break;
+                } else {
+                    System.out.println("Please input correct choice");
+                    sc.nextLine();
+                }
+            }
+        }
+    }
+
+    public void listSpent() {
+        System.out.println("all / category");
+        int expense = 0;
+        while (true) {
+            String type = sc.next();
+            if (type.equals("all")) {
+                for (Expense e : expenseRecorder.getExpenses()) {
+                    expense = expense + e.getExpenses();
+                }
+                System.out.println(expense);
+                break;
+            } else if (type.equals("category")) {
+                spentCategory();
+            }
+            for (Expense e : expenseRecorder.getExpenses()) {
+                if (e.getCategory().equals(new String(category))) {
+                    expense = expense + e.getExpenses();
+                }
+            }
+        }
+
+    }
+
+    public void spentCategory() {
+        System.out.println("Choose one of the category:1) food 2) rental 3) entertainment 4) others");
+        while (true) {
+            if (sc.hasNextInt()) {
+                int choice = sc.nextInt();
+                if (choice >= 1 && choice <= 4) {
+                    if (choice == 1) {
+                        category = "food";
+                    } else if (choice == 2) {
+                        category = "rental";
+                    } else if (choice == 3) {
+                        category = "entertainment";
+                    } else {
+                        category = "others";
+                    }
+                    break;
+                } else {
+                    System.out.println("Please input correct choice");
+                    sc.nextLine();
+                }
+            }
+        }
+    }
+
+    public void repayLoan() {
+        System.out.println("How much you want to repay:");
+        while (true) {
+            if (sc.hasNextInt()) {
+                int repays = sc.nextInt();
+                if (0 < repays && repays <= financeTracker.getLoans()) {
+                    financeTracker.repayMoney(repays);
+                    break;
+                } else {
+                    System.out.println("Please input an integer between 1 and loans");
+                    sc.nextLine();
+                }
             }
 
-        } else if (option == 6) {
-            System.out.println("all / category");
-            int expense = 0;
-            while (true) {
-                String type = sc.next();
-                if (type.equals("all")) {
-                    for (Expense e : expenseRecorder.getExpenses()) {
-                        expense = expense + e.getExpenses();
-                    }
-                    System.out.println(expense);
-                    break;
-                } else if (type.equals("category")) {
-                    System.out.println("Choose one of the category:1) food 2) rental 3) entertainment 4) others");
-                    while (true) {
-                        if (sc.hasNextInt()) {
-                            int choice = sc.nextInt();
-                            if (choice >= 1 && choice <= 4) {
-                                if (choice == 1) {
-                                    category = "food";
-                                } else if (choice == 2) {
-                                    category = "rental";
-                                } else if (choice == 3) {
-                                    category = "entertainment";
-                                } else {
-                                    category = "others";
-                                }
-                                break;
-                            } else {
-                                System.out.println("Please input correct choice");
-                                sc.nextLine();
-                            }
-                        }
-                    }
-                    for (Expense e : expenseRecorder.getExpenses()) {
-                        if (e.getCategory().equals(new String(category)))
-                            expense = expense + e.getExpenses();
-                    }
-                }
+        }
+    }
 
+    public void borrowLoan() {
+        System.out.println("How much you want to borrow:");
+        while (true) {
+            if (sc.hasNextInt()) {
+                int loans = sc.nextInt();
+                if (0 < loans && loans <= 1000000) {
+                    financeTracker.borrowMoney(loans);
+                    break;
+                } else {
+                    System.out.println("Please input an integer between 1 and 1000000");
+                    sc.nextLine();
+                }
             }
         }
     }
