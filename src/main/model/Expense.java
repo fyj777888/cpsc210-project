@@ -1,17 +1,17 @@
 package model;
 
 public class Expense {
-    private int values;
+    private double values;
     private String purpose;
     private String category;
 
-    public Expense(int values, String purpose, String category) {
+    public Expense(double values, String purpose, String category) {
         this.values = values;
         this.purpose = purpose;
         this.category = category;
     }
 
-    public int getExpenses() {
+    public double getExpenses() {
         return values;
     }
 

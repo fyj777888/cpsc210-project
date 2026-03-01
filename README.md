@@ -12,3 +12,5 @@ A *bulleted* list:
 - item 3 Show summaries like monthly total, category breakdown, and budget warning when overspending
 
 An example of text with **bold** and *italic* fonts.  
+As a user, when I select the quit option from the application menu, I want to be reminded to save my ExpenseRecorder to file and have the option to do so or not.
+As a user, when I start the application, I want to be given the option to load my ExpenseRecorder from file.

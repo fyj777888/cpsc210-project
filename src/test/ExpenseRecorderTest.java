@@ -1,5 +1,6 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,7 +18,6 @@ public class ExpenseRecorderTest {
 
     @Test
     void addAndGetExpensesTest() {
-        assertFalse(recorder.getExpenses() == null);
         assertEquals(0, recorder.getExpenses().size());
 
         Expense e1 = new Expense(10, "Lunch", "Food");
@@ -34,7 +34,6 @@ public class ExpenseRecorderTest {
 
     @Test
     void getExpensesSameListReferenceTest() {
-        assertFalse(recorder.getExpenses() == null);
 
         recorder.getExpenses().add(new Expense(5, "Snack", "Food"));
         assertEquals(1, recorder.getExpenses().size());

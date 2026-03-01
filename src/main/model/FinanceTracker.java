@@ -1,36 +1,36 @@
 package model;
 
 public class FinanceTracker {
-    private int values;
-    private int loans;
+    private double values;
+    private double loans;
 
     public FinanceTracker() {
         values = 0;
         loans = 0;
     }
 
-    public int getValues() {
+    public double getValues() {
         return values;
     }
 
-    public int getLoans() {
+    public double getLoans() {
         return loans;
     }
 
-    public void addValues(int values) {
+    public void addValues(double values) {
         this.values = this.values + values;
     }
 
-    public void decreaseValues(int values) {
+    public void decreaseValues(double values) {
         this.values = this.values - values;
     }
 
-    public void borrowMoney(int values) {
+    public void borrowMoney(double values) {
         loans = loans + values;
         this.addValues(values);
     }
 
-    public void repayMoney(int values) {
+    public void repayMoney(double values) {
         loans = loans - values;
         this.decreaseValues(values);
     }
