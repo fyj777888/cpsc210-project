@@ -1,0 +1,18 @@
+{
+    "tracker": {
+        "loans": 0,
+        "values": -3
+    },
+    "expenses": [
+        {
+            "purpose": "1",
+            "values": 1,
+            "category": "food"
+        },
+        {
+            "purpose": "2",
+            "values": 2,
+            "category": "rental"
+        }
+    ]
+}
