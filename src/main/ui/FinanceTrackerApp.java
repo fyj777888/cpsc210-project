@@ -13,8 +13,7 @@ public class FinanceTrackerApp {
     String category;
     ExpenseRecorder expenseRecorder = new ExpenseRecorder();
     FinanceTracker financeTracker = new FinanceTracker();
-    private DataRecorder dataRecorder; 
-    
+    private DataRecorder dataRecorder;
 
     public FinanceTrackerApp() {
         sc = new Scanner(System.in);
@@ -64,31 +63,25 @@ public class FinanceTrackerApp {
                 addExpense();
                 return;
             case 2:
-                listAllExpenses();  
+                listAllExpenses();
                 return;
             case 3:
-                showBalanceAndLoans();  
+                showBalanceAndLoans();
                 return;
             case 4:
-                borrowLoan();  
-                return; 
+                borrowLoan();
+                return;
             case 5:
                 repayLoan();
                 return;
-            case 6: 
+            case 6:
                 listSpent();
                 return;
             case 7:
-                dataRecorder.saveWorkRoom(expenseRecorder, financeTracker);
-                return; 
+                saveData();
+                return;
             case 8:
-                FinanceApp loaded = dataRecorder.loadWorkRoom();
-                if (loaded != null) {
-                    expenseRecorder = loaded.getExpenseRecorder();
-                    financeTracker = loaded.getFinanceTracker();
-                } else {
-                    System.out.println("Load failed: loaded == null");
-                }
+                loadData();
                 return;
             default:
                 return;
@@ -188,32 +181,27 @@ public class FinanceTrackerApp {
 
     public void spentCategory() {
         System.out.println("Choose one of the category:1) food 2) rental 3) entertainment 4) others");
-        helpSpentCategory();
-
-    }
-
-    public void helpSpentCategory() {
         while (true) {
             if (sc.hasNextInt()) {
                 int choice = sc.nextInt();
-                if (choice >= 1 && choice <= 4) {
-                    if (choice == 1) {
+                switch (choice) {
+                    case 1:
                         category = "food";
-                    } else if (choice == 2) {
+                        return;
+                    case 2:
                         category = "rental";
-                    } else if (choice == 3) {
+                        return;
+                    case 3:
                         category = "entertainment";
-                    } else {
+                        return;
+                    case 4:
                         category = "others";
-                    }
-                    break;
-                } else {
-                    System.out.println("Please input correct choice");
-                    sc.nextLine();
+                        return;
+                    default:
+                        System.out.println("Please input correct choice");
+                        sc.nextLine();
+                        return;
                 }
-            } else {
-                System.out.println("Please input correct choice");
-                sc.next();
             }
         }
     }
@@ -261,5 +249,18 @@ public class FinanceTrackerApp {
         }
     }
 
-    
+    public void saveData() {
+        dataRecorder.saveFinanceApp(expenseRecorder, financeTracker);
+    }
+
+    public void loadData() {
+        FinanceApp loaded = dataRecorder.loadFinanceApp();
+        if (loaded != null) {
+            expenseRecorder = loaded.getExpenseRecorder();
+            financeTracker = loaded.getFinanceTracker();
+        } else {
+            System.out.println("Load failed: loaded == null");
+        }
+    }
+
 }

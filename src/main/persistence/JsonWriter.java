@@ -9,7 +9,7 @@ import org.json.JSONObject;
 import model.FinanceApp;
 
 public class JsonWriter {
-private static final int TAB = 4;
+    private static final int TAB = 4;
     private PrintWriter writer;
     private String destination;
 
@@ -19,7 +19,8 @@ private static final int TAB = 4;
     }
 
     // MODIFIES: this
-    // EFFECTS: opens writer; throws FileNotFoundException if destination file cannot
+    // EFFECTS: opens writer; throws FileNotFoundException if destination file
+    // cannot
     // be opened for writing
     public void open() throws FileNotFoundException {
         writer = new PrintWriter(new File(destination));

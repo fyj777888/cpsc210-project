@@ -16,6 +16,7 @@ public class FinanceApp implements Writable {
 
     public void addExpense(Expense expense) {
         e.addExpense(expense);
+        f.decreaseValues(expense.getExpenses());
     }
 
     public ExpenseRecorder getExpenseRecorder() {

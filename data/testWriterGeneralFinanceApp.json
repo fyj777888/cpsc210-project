@@ -1,0 +1,18 @@
+{
+    "tracker": {
+        "loans": 0,
+        "values": -30
+    },
+    "expenses": [
+        {
+            "purpose": "plumber",
+            "values": 20,
+            "category": "other"
+        },
+        {
+            "purpose": "burger",
+            "values": 10,
+            "category": "food"
+        }
+    ]
+}

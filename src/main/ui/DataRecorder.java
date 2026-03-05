@@ -19,8 +19,8 @@ public class DataRecorder {
         jsonReader = new JsonReader(JSON_STORE);
     }
 
-    // EFFECTS: saves the workroom to file
-    public void saveWorkRoom(ExpenseRecorder er, FinanceTracker ft) {
+    // EFFECTS: saves the FinanceApp to file
+    public void saveFinanceApp(ExpenseRecorder er, FinanceTracker ft) {
         try {
             jsonWriter.open();
             jsonWriter.write(new FinanceApp(er, ft));
@@ -31,8 +31,8 @@ public class DataRecorder {
         }
     }
 
-    // EFFECTS: loads workroom from file
-    public FinanceApp loadWorkRoom() {
+    // EFFECTS: loads FinanceApp from file
+    public FinanceApp loadFinanceApp() {
         try {
             FinanceApp financeApp = jsonReader.read();
             System.out.println("Loaded " + "financeApp" + " from " + JSON_STORE);
