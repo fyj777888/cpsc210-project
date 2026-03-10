@@ -6,9 +6,7 @@ import java.io.IOException;
 import org.junit.jupiter.api.Test;
 
 import model.Expense;
-import model.ExpenseRecorder;
 import model.FinanceApp;
-import model.FinanceTracker;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -27,7 +25,7 @@ public class JsonWriterTest {
     @Test
     void testWriterEmptyFinanceApp() {
         try {
-            FinanceApp fa = new FinanceApp(new ExpenseRecorder(), new FinanceTracker());
+            FinanceApp fa = new FinanceApp();
             JsonWriter writer = new JsonWriter("./data/testWriterEmptyFinanceApp.json");
             writer.open();
             writer.write(fa);
@@ -45,7 +43,7 @@ public class JsonWriterTest {
     @Test
     void testWriterGeneralFinanceApp() {
         try {
-            FinanceApp fa = new FinanceApp(new ExpenseRecorder(), new FinanceTracker());
+            FinanceApp fa = new FinanceApp();
             fa.addExpense(new Expense(20, "plumber", "other"));
             fa.addExpense(new Expense(10, "burger", "food"));
             JsonWriter writer = new JsonWriter("./data/testWriterGeneralFinanceApp.json");

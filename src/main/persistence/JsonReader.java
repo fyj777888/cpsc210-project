@@ -47,7 +47,8 @@ public class JsonReader {
         ExpenseRecorder recorder = new ExpenseRecorder();
         FinanceTracker tracker = new FinanceTracker();
         parseTracker(tracker, jsonObject);
-        FinanceApp fa = new FinanceApp(recorder, tracker);
+        FinanceApp fa = new FinanceApp();
+        fa.setFinanceApp(recorder, tracker);
         addExpenses(fa, jsonObject);
         return fa;
     }
@@ -69,6 +70,7 @@ public class JsonReader {
             tracker.decreaseValues(loans);
         }
     }
+
 
     // MODIFIES: fa
     // EFFECTS: parses FinanceApp from JSON object and adds them to FinanceApp

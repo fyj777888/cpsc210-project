@@ -3,16 +3,12 @@ package ui;
 import java.util.Scanner;
 
 import model.Expense;
-import model.ExpenseRecorder;
 import model.FinanceApp;
-import model.FinanceTracker;
 
 public class FinanceTrackerApp {
-    Scanner sc;
-    int option;
-    String category;
-    ExpenseRecorder expenseRecorder = new ExpenseRecorder();
-    FinanceTracker financeTracker = new FinanceTracker();
+    private Scanner sc;
+    private int option;
+    FinanceApp financeApp;
     private DataRecorder dataRecorder;
 
     public FinanceTrackerApp() {
@@ -91,11 +87,11 @@ public class FinanceTrackerApp {
     public void addExpense() {
         double values;
         String purpose;
+        String category;
         while (true) {
             System.out.println("How much you spent");
             if (sc.hasNextDouble()) {
                 values = sc.nextDouble();
-                financeTracker.decreaseValues(values);
                 break;
             } else {
                 System.out.println("Please input correct values");
@@ -105,12 +101,13 @@ public class FinanceTrackerApp {
         System.out.println("What's your purpose");
         purpose = sc.next();
         System.out.println("Choose one of the category:1) food 2) rental 3) entertainment 4) others");
-        addCategory();
-        expenseRecorder.addExpense(new Expense(values, purpose, category));
+        category = addCategory();
+        financeApp = new FinanceApp();
+        financeApp.addExpense(new Expense(values, purpose, category));
     }
 
     public void listAllExpenses() {
-        for (Expense e : expenseRecorder.getExpenses()) {
+        for (Expense e : financeApp.getExpenseRecorder().getExpenses()) {
             System.out.println("Values:" + e.getExpenses());
             System.out.println("Purpose:" + e.getPurpose());
             System.out.println("Category:" + e.getCategory());
@@ -118,27 +115,28 @@ public class FinanceTrackerApp {
     }
 
     public void showBalanceAndLoans() {
-        System.out.println("Balance:" + financeTracker.getValues());
-        System.out.println("Loans:" + financeTracker.getLoans());
+        System.out.println("Balance:" + financeApp.getFinanceTracker().getValues());
+        System.out.println("Loans:" + financeApp.getFinanceTracker().getLoans());
     }
 
-    public void addCategory() {
+    public String addCategory() {
+        String category;
         while (true) {
             if (sc.hasNextInt()) {
                 int choice = sc.nextInt();
                 switch (choice) {
                     case 1:
                         category = "food";
-                        return;
+                        return category;
                     case 2:
                         category = "rental";
-                        return;
+                        return category;
                     case 3:
                         category = "entertainment";
-                        return;
+                        return category;
                     case 4:
                         category = "others";
-                        return;
+                        return category;
                     default:
                         System.out.println("Please input correct choice");
                         sc.nextLine();
@@ -152,19 +150,20 @@ public class FinanceTrackerApp {
     }
 
     public void listSpent() {
+        String category;
         System.out.println("all / category");
         double expense = 0;
         while (true) {
             String type = sc.next();
             if (type.equals("all")) {
-                for (Expense e : expenseRecorder.getExpenses()) {
+                for (Expense e : financeApp.getExpenseRecorder().getExpenses()) {
                     expense = expense + e.getExpenses();
                 }
                 System.out.println(expense);
                 break;
             } else if (type.equals("category")) {
-                spentCategory();
-                for (Expense e : expenseRecorder.getExpenses()) {
+                category = spentCategory();
+                for (Expense e : financeApp.getExpenseRecorder().getExpenses()) {
                     if (e.getCategory().equals(category)) {
                         expense = expense + e.getExpenses();
                     }
@@ -179,7 +178,8 @@ public class FinanceTrackerApp {
 
     }
 
-    public void spentCategory() {
+    public String spentCategory() {
+        String category;
         System.out.println("Choose one of the category:1) food 2) rental 3) entertainment 4) others");
         while (true) {
             if (sc.hasNextInt()) {
@@ -187,27 +187,26 @@ public class FinanceTrackerApp {
                 switch (choice) {
                     case 1:
                         category = "food";
-                        return;
+                        return category;
                     case 2:
                         category = "rental";
-                        return;
+                        return category;
                     case 3:
                         category = "entertainment";
-                        return;
+                        return category;
                     case 4:
                         category = "others";
-                        return;
+                        return category;
                     default:
                         System.out.println("Please input correct choice");
                         sc.nextLine();
-                        return;
                 }
             }
         }
     }
 
     public void repayLoan() {
-        if (financeTracker.getLoans() == 0) {
+        if (financeApp.getFinanceTracker().getLoans() == 0) {
             System.out.println("You have no loans to repay.");
             return;
         }
@@ -215,8 +214,8 @@ public class FinanceTrackerApp {
         while (true) {
             if (sc.hasNextDouble()) {
                 double repays = sc.nextDouble();
-                if (0 < repays && repays <= financeTracker.getLoans()) {
-                    financeTracker.repayMoney(repays);
+                if (0 < repays && repays <= financeApp.getFinanceTracker().getLoans()) {
+                    financeApp.getFinanceTracker().repayMoney(repays);
                     break;
                 } else {
                     System.out.println("Please input an number between 1 and loans");
@@ -236,7 +235,7 @@ public class FinanceTrackerApp {
             if (sc.hasNextDouble()) {
                 double loans = sc.nextDouble();
                 if (0 < loans && loans <= 1000000) {
-                    financeTracker.borrowMoney(loans);
+                    financeApp.getFinanceTracker().borrowMoney(loans);
                     break;
                 } else {
                     System.out.println("Please input an integer between 1 and 1000000");
@@ -250,14 +249,14 @@ public class FinanceTrackerApp {
     }
 
     public void saveData() {
-        dataRecorder.saveFinanceApp(expenseRecorder, financeTracker);
+        dataRecorder.saveFinanceApp(financeApp);
     }
 
     public void loadData() {
         FinanceApp loaded = dataRecorder.loadFinanceApp();
         if (loaded != null) {
-            expenseRecorder = loaded.getExpenseRecorder();
-            financeTracker = loaded.getFinanceTracker();
+            financeApp = loaded;
+            System.out.println("Load successful!");
         } else {
             System.out.println("Load failed: loaded == null");
         }

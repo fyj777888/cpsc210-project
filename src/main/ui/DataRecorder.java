@@ -3,9 +3,7 @@ package ui;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import model.ExpenseRecorder;
 import model.FinanceApp;
-import model.FinanceTracker;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -20,10 +18,10 @@ public class DataRecorder {
     }
 
     // EFFECTS: saves the FinanceApp to file
-    public void saveFinanceApp(ExpenseRecorder er, FinanceTracker ft) {
+    public void saveFinanceApp(FinanceApp financeApp) {
         try {
             jsonWriter.open();
-            jsonWriter.write(new FinanceApp(er, ft));
+            jsonWriter.write(financeApp);
             jsonWriter.close();
             System.out.println("Saved " + "financeApp" + " to " + JSON_STORE);
         } catch (FileNotFoundException e) {
