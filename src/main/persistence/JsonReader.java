@@ -64,10 +64,9 @@ public class JsonReader {
         double values = trackerJson.getDouble("values");
         double loans = trackerJson.getDouble("loans");
 
-        tracker.addValues(values);
+        tracker.setValues(values);
         if (loans != 0) {
-            tracker.borrowMoney(loans);
-            tracker.decreaseValues(loans);
+            tracker.setLoans(loans);
         }
     }
 

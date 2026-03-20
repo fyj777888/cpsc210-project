@@ -8,7 +8,7 @@ import model.FinanceApp;
 public class FinanceTrackerApp {
     private Scanner sc;
     private int option;
-    FinanceApp financeApp;
+    FinanceApp financeApp = new FinanceApp();
     private DataRecorder dataRecorder;
 
     public FinanceTrackerApp() {
@@ -53,6 +53,7 @@ public class FinanceTrackerApp {
 
     }
 
+    @SuppressWarnings("methodlength")
     private void makeOptions(int option) {
         switch (option) {
             case 1:
@@ -100,9 +101,7 @@ public class FinanceTrackerApp {
         }
         System.out.println("What's your purpose");
         purpose = sc.next();
-        System.out.println("Choose one of the category:1) food 2) rental 3) entertainment 4) others");
-        category = addCategory();
-        financeApp = new FinanceApp();
+        category = chooseCategory();
         financeApp.addExpense(new Expense(values, purpose, category));
     }
 
@@ -119,66 +118,8 @@ public class FinanceTrackerApp {
         System.out.println("Loans:" + financeApp.getFinanceTracker().getLoans());
     }
 
-    public String addCategory() {
-        String category;
-        while (true) {
-            if (sc.hasNextInt()) {
-                int choice = sc.nextInt();
-                switch (choice) {
-                    case 1:
-                        category = "food";
-                        return category;
-                    case 2:
-                        category = "rental";
-                        return category;
-                    case 3:
-                        category = "entertainment";
-                        return category;
-                    case 4:
-                        category = "others";
-                        return category;
-                    default:
-                        System.out.println("Please input correct choice");
-                        sc.nextLine();
-                        break;
-                }
-            } else {
-                System.out.println("Please input correct choice");
-                sc.next();
-            }
-        }
-    }
-
-    public void listSpent() {
-        String category;
-        System.out.println("all / category");
-        double expense = 0;
-        while (true) {
-            String type = sc.next();
-            if (type.equals("all")) {
-                for (Expense e : financeApp.getExpenseRecorder().getExpenses()) {
-                    expense = expense + e.getExpenses();
-                }
-                System.out.println(expense);
-                break;
-            } else if (type.equals("category")) {
-                category = spentCategory();
-                for (Expense e : financeApp.getExpenseRecorder().getExpenses()) {
-                    if (e.getCategory().equals(category)) {
-                        expense = expense + e.getExpenses();
-                    }
-                }
-                System.out.println(expense);
-                break;
-            } else {
-                System.out.println("Please input \"all\" or \"category\"");
-            }
-
-        }
-
-    }
-
-    public String spentCategory() {
+    @SuppressWarnings("methodlength")
+    public String chooseCategory() {
         String category;
         System.out.println("Choose one of the category:1) food 2) rental 3) entertainment 4) others");
         while (true) {
@@ -201,6 +142,37 @@ public class FinanceTrackerApp {
                         System.out.println("Please input correct choice");
                         sc.nextLine();
                 }
+            } else {
+                System.out.println("Please input correct choice");
+                sc.next();
+            }
+        }
+    }
+
+    @SuppressWarnings("methodlength")
+    public void listSpent() {
+        String category;
+        System.out.println("all / category");
+        double expense = 0;
+        while (true) {
+            String type = sc.next();
+            if (type.equals("all")) {
+                for (Expense e : financeApp.getExpenseRecorder().getExpenses()) {
+                    expense = expense + e.getExpenses();
+                }
+                System.out.println(expense);
+                break;
+            } else if (type.equals("category")) {
+                category = chooseCategory();
+                for (Expense e : financeApp.getExpenseRecorder().getExpenses()) {
+                    if (e.getCategory().equals(category)) {
+                        expense = expense + e.getExpenses();
+                    }
+                }
+                System.out.println(expense);
+                break;
+            } else {
+                System.out.println("Please input \"all\" or \"category\"");
             }
         }
     }
@@ -254,11 +226,11 @@ public class FinanceTrackerApp {
 
     public void loadData() {
         FinanceApp loaded = dataRecorder.loadFinanceApp();
-        if (loaded != null) {
+        if (loaded == null) {
+            System.out.println("Load failed: loaded == null");           
+        } else {
             financeApp = loaded;
             System.out.println("Load successful!");
-        } else {
-            System.out.println("Load failed: loaded == null");
         }
     }
 

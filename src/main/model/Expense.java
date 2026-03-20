@@ -11,14 +11,17 @@ public class Expense {
         this.category = category;
     }
 
+    // EFFECTS: returns the amount of money spent for this expense
     public double getExpenses() {
         return values;
     }
 
+    // EFFECTS: returns the purpose of this expense
     public String getPurpose() {
         return purpose;
     }
 
+    // EFFECTS: returns the category of this expense
     public String getCategory() {
         return category;
     }

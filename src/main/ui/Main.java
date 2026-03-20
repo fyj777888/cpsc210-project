@@ -1,8 +1,11 @@
 package ui;
 
+import javax.swing.JFrame;
+
+import ui.GUI.MyFrame;
+
 public class Main {
     public static void main(String[] args) throws Exception {
-        System.out.println("Welcome to my project!");
-        new FinanceTrackerApp();
+        MyFrame myFrame = new MyFrame();      
     }
 }

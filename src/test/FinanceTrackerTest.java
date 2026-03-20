@@ -16,7 +16,7 @@ public class FinanceTrackerTest {
     }
 
     @Test
-    void UpdateValuesAndLoansTest() {
+    void updateValuesAndLoansTest() {
         assertEquals(0, financeTracker1.getValues());
         assertEquals(0, financeTracker1.getLoans());
         financeTracker1.addValues(100);
@@ -41,5 +41,13 @@ public class FinanceTrackerTest {
         assertEquals(20, financeTracker1.getLoans());
         assertEquals(0, financeTracker2.getValues());
         assertEquals(0, financeTracker2.getLoans());
+    }
+
+    @Test
+    void setLoansAndValuesTest() {
+        financeTracker1.setLoans(100);
+        financeTracker1.setValues(200);
+        assertEquals(200, financeTracker1.getValues());
+        assertEquals(100, financeTracker1.getLoans());
     }
 }
