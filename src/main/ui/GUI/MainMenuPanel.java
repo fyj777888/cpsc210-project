@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import model.FinanceApp;
+import ui.DataRecorder;
 
 public class MainMenuPanel extends JPanel implements ActionListener {
     private JButton addExpenseButton;
@@ -18,8 +19,9 @@ public class MainMenuPanel extends JPanel implements ActionListener {
     private JButton listSpentButton;
     private JButton saveDataButton;
     private JButton loadDataButton;
-    FinanceApp financeApp;
+    private FinanceApp financeApp;
     private MyFrame frame;
+    private DataRecorder dataRecorder;
 
     public MainMenuPanel(MyFrame frame) {
         super();
@@ -28,6 +30,7 @@ public class MainMenuPanel extends JPanel implements ActionListener {
         this.setLayout(null);
         constructButtons();
         financeApp = new FinanceApp();
+        dataRecorder = new DataRecorder();
         this.add(addExpenseButton);
         this.add(listAllExpensesButton);
         this.add(showBalanceAndLoansButton);
@@ -39,7 +42,7 @@ public class MainMenuPanel extends JPanel implements ActionListener {
 
     }
 
-    private void constructButtons () {
+    private void constructButtons() {
         addExpenseButton = new JButton("Add an expense");
         listAllExpensesButton = new JButton("List all expenses");
         showBalanceAndLoansButton = new JButton("Show balance and loan balance");
@@ -56,6 +59,10 @@ public class MainMenuPanel extends JPanel implements ActionListener {
         listSpentButton.setBounds(1000, 0, 200, 150);
         saveDataButton.setBounds(1200, 0, 200, 150);
         loadDataButton.setBounds(1400, 0, 200, 150);
+        addActionListener();
+    }
+
+    private void addActionListener() {
         addExpenseButton.addActionListener(this);
         listAllExpensesButton.addActionListener(this);
         showBalanceAndLoansButton.addActionListener(this);
@@ -64,6 +71,18 @@ public class MainMenuPanel extends JPanel implements ActionListener {
         listSpentButton.addActionListener(this);
         saveDataButton.addActionListener(this);
         loadDataButton.addActionListener(this);
+    }
+
+    public FinanceApp getFinanceApp() {
+        return financeApp;
+    }
+
+    public DataRecorder getDataRecorder() {
+        return dataRecorder;
+    }
+
+    public void setFinanceApp(FinanceApp financeApp) {
+        this.financeApp = financeApp;
     }
 
     @Override
@@ -83,8 +102,15 @@ public class MainMenuPanel extends JPanel implements ActionListener {
         } else if (e.getSource() == repayLoanButton) {
             RepayLoanPanel repayLoanPanel = new RepayLoanPanel(financeApp);
             frame.showPanel(repayLoanPanel);
+        } else if (e.getSource() == listSpentButton) {
+            ListSpentPanel listSpentPanel = new ListSpentPanel(financeApp);
+            frame.showPanel(listSpentPanel);
+        } else if (e.getSource() == saveDataButton) {
+            SaveDataPanel saveDataPanel = new SaveDataPanel(this);
+            frame.showPanel(saveDataPanel);
+        } else if (e.getSource() == loadDataButton) {
+            LoadDataPanel loadDataPanel = new LoadDataPanel(this);
+            frame.showPanel(loadDataPanel);
         }
-
     }
-
 }
