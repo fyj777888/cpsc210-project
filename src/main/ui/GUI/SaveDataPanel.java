@@ -1,4 +1,4 @@
-package ui.GUI;
+package ui.gui;
 
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -9,7 +9,8 @@ import ui.DataRecorder;
 public class SaveDataPanel extends JPanel {
     private MainMenuPanel mainMenuPanel;
     private JTextArea textArea;
-    public SaveDataPanel (MainMenuPanel mainMenuPanel) {
+
+    public SaveDataPanel(MainMenuPanel mainMenuPanel) {
         this.mainMenuPanel = mainMenuPanel;
         mainMenuPanel.getDataRecorder().saveFinanceApp(mainMenuPanel.getFinanceApp());
         setLayout(null);
@@ -18,5 +19,5 @@ public class SaveDataPanel extends JPanel {
         textArea.setEditable(false);
         textArea.setText("Save data succesfully!");
     }
-    
+
 }

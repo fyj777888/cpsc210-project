@@ -1,4 +1,4 @@
-package ui.GUI;
+package ui.gui;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -19,6 +19,7 @@ public class MainMenuPanel extends JPanel implements ActionListener {
     private JButton listSpentButton;
     private JButton saveDataButton;
     private JButton loadDataButton;
+    private JButton spendChartButton;
     private FinanceApp financeApp;
     private MyFrame frame;
     private DataRecorder dataRecorder;
@@ -39,6 +40,7 @@ public class MainMenuPanel extends JPanel implements ActionListener {
         this.add(listSpentButton);
         this.add(saveDataButton);
         this.add(loadDataButton);
+        this.add(spendChartButton);
 
     }
 
@@ -51,14 +53,16 @@ public class MainMenuPanel extends JPanel implements ActionListener {
         listSpentButton = new JButton("Show total spent");
         saveDataButton = new JButton("Save financeApp");
         loadDataButton = new JButton("Load financeApp");
-        addExpenseButton.setBounds(0, 0, 200, 150);
-        listAllExpensesButton.setBounds(200, 0, 200, 150);
-        showBalanceAndLoansButton.setBounds(400, 0, 200, 150);
-        borrowLoanButton.setBounds(600, 0, 200, 150);
-        repayLoanButton.setBounds(800, 0, 200, 150);
-        listSpentButton.setBounds(1000, 0, 200, 150);
-        saveDataButton.setBounds(1200, 0, 200, 150);
-        loadDataButton.setBounds(1400, 0, 200, 150);
+        spendChartButton = new JButton("Spent Chart");
+        addExpenseButton.setBounds(0, 0, 100, 100);
+        listAllExpensesButton.setBounds(100, 0, 100, 100);
+        showBalanceAndLoansButton.setBounds(200, 0, 100, 100);
+        borrowLoanButton.setBounds(300, 0, 100, 100);
+        repayLoanButton.setBounds(400, 0, 100, 100);
+        listSpentButton.setBounds(500, 0, 100, 100);
+        saveDataButton.setBounds(600, 0, 100, 100);
+        loadDataButton.setBounds(700, 0, 100, 100);
+        spendChartButton.setBounds(800, 0, 100, 100);
         addActionListener();
     }
 
@@ -71,6 +75,7 @@ public class MainMenuPanel extends JPanel implements ActionListener {
         listSpentButton.addActionListener(this);
         saveDataButton.addActionListener(this);
         loadDataButton.addActionListener(this);
+        spendChartButton.addActionListener(this);
     }
 
     public FinanceApp getFinanceApp() {
@@ -111,6 +116,10 @@ public class MainMenuPanel extends JPanel implements ActionListener {
         } else if (e.getSource() == loadDataButton) {
             LoadDataPanel loadDataPanel = new LoadDataPanel(this);
             frame.showPanel(loadDataPanel);
+        } else if (e.getSource() == spendChartButton) {
+            ExpenseCategoryBarChartPanel expenseCategoryBarChartPanel = new ExpenseCategoryBarChartPanel(
+                    financeApp.getExpenseRecorder().getExpenses());
+            frame.showPanel(expenseCategoryBarChartPanel);
         }
     }
 }

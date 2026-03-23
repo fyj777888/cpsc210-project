@@ -1,4 +1,4 @@
-package ui.GUI;
+package ui.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,42 +34,56 @@ public class ListSpentPanel extends JPanel implements ActionListener {
         add(categoryBox);
     }
 
+    private void handleCategorySelection() {
+        double expense = 0;
+        String selected = (String) categoryBox.getSelectedItem();
+
+        if (subCategoryBox != null) {
+            remove(subCategoryBox);
+            subCategoryBox = null;
+        }
+
+        if (selected.equals("All")) {
+            for (Expense f : financeApp.getExpenseRecorder().getExpenses()) {
+                expense += f.getExpenses();
+            }
+            textArea.setText("Show all spent: " + expense);
+        } else if (selected.equals("Category")) {
+            createSubCategoryBox();
+        }
+    }
+
+    private void handleSubCategorySelection() {
+        double expense = 0;
+        String subSelected = (String) subCategoryBox.getSelectedItem();
+        for (Expense f : financeApp.getExpenseRecorder().getExpenses()) {
+            if (f.getCategory().equals(subSelected)) {
+                expense += f.getExpenses();
+            }
+        }
+        textArea.setText("Show spent for " + subSelected + ": " + expense);
+    }
+
+    private void createSubCategoryBox() {
+        subCategoryBox = new JComboBox<>();
+        subCategoryBox.setBounds(320, 450, 250, 35);
+        subCategoryBox.addItem("Food");
+        subCategoryBox.addItem("Rental");
+        subCategoryBox.addItem("Entertainment");
+        subCategoryBox.addItem("Others");
+        subCategoryBox.addActionListener(this);
+        add(subCategoryBox);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        double expense = 0;
         if (e.getSource() == categoryBox) {
-            String selected = (String) categoryBox.getSelectedItem();
-
-            if (subCategoryBox != null) {
-                remove(subCategoryBox);
-                subCategoryBox = null;
-            }
-
-            if (selected.equals("All")) {
-                for (Expense f : financeApp.getExpenseRecorder().getExpenses()) {
-                    expense = expense + f.getExpenses();
-                }
-                textArea.setText("Show all spent:" + " " + expense);
-            } else if (selected.equals("Category")) {
-                subCategoryBox = new JComboBox<>();
-                subCategoryBox.setBounds(320, 450, 250, 35);
-                subCategoryBox.addItem("Food");
-                subCategoryBox.addItem("Rental");
-                subCategoryBox.addItem("Entertainment");
-                subCategoryBox.addItem("Others");
-                subCategoryBox.addActionListener(this);
-                add(subCategoryBox);
-            }
+            handleCategorySelection();
         } else if (e.getSource() == subCategoryBox) {
-            String subSelected = (String) subCategoryBox.getSelectedItem();
-            for (Expense f : financeApp.getExpenseRecorder().getExpenses()) {
-                if (f.getCategory().equals(subSelected)){
-                expense = expense + f.getExpenses();
-                }
-            }
-            textArea.setText("Show spent for" + " " + subSelected + ": " + expense);
+            handleSubCategorySelection();
         }
         revalidate();
         repaint();
     }
+
 }

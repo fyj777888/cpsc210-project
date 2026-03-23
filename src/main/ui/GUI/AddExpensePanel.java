@@ -1,4 +1,4 @@
-package ui.GUI;
+package ui.gui;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -96,6 +96,10 @@ public class AddExpensePanel extends JPanel implements ActionListener {
         String category;
         try {
             values = Double.parseDouble(amountField.getText());
+            if (values <= 0) {
+                messageLabel.setText("Please input a positive value");
+                return;
+            }
         } catch (NumberFormatException e) {
             messageLabel.setText("Please input correct values");
             return;

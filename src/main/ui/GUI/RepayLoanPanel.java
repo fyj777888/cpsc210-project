@@ -1,4 +1,4 @@
-package ui.GUI;
+package ui.gui;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -11,7 +11,7 @@ import javax.swing.JTextField;
 
 import model.FinanceApp;
 
-public class RepayLoanPanel extends JPanel implements ActionListener{
+public class RepayLoanPanel extends JPanel implements ActionListener {
     private FinanceApp financeApp;
 
     private JLabel titleLabel;
