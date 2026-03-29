@@ -20,6 +20,7 @@ public class MainMenuPanel extends JPanel implements ActionListener {
     private JButton saveDataButton;
     private JButton loadDataButton;
     private JButton spendChartButton;
+    private JButton eventLogButton;
     private FinanceApp financeApp;
     private MyFrame frame;
     private DataRecorder dataRecorder;
@@ -41,6 +42,7 @@ public class MainMenuPanel extends JPanel implements ActionListener {
         this.add(saveDataButton);
         this.add(loadDataButton);
         this.add(spendChartButton);
+        this.add(eventLogButton);
 
     }
 
@@ -54,6 +56,7 @@ public class MainMenuPanel extends JPanel implements ActionListener {
         saveDataButton = new JButton("Save financeApp");
         loadDataButton = new JButton("Load financeApp");
         spendChartButton = new JButton("Spent Chart");
+        eventLogButton = new JButton("Log expenses");
         addExpenseButton.setBounds(0, 0, 100, 100);
         listAllExpensesButton.setBounds(100, 0, 100, 100);
         showBalanceAndLoansButton.setBounds(200, 0, 100, 100);
@@ -63,6 +66,7 @@ public class MainMenuPanel extends JPanel implements ActionListener {
         saveDataButton.setBounds(600, 0, 100, 100);
         loadDataButton.setBounds(700, 0, 100, 100);
         spendChartButton.setBounds(800, 0, 100, 100);
+        eventLogButton.setBounds(900, 0, 100, 100);
         addActionListener();
     }
 
@@ -76,6 +80,7 @@ public class MainMenuPanel extends JPanel implements ActionListener {
         saveDataButton.addActionListener(this);
         loadDataButton.addActionListener(this);
         spendChartButton.addActionListener(this);
+        eventLogButton.addActionListener(this);
     }
 
     public FinanceApp getFinanceApp() {
@@ -120,6 +125,9 @@ public class MainMenuPanel extends JPanel implements ActionListener {
             ExpenseCategoryBarChartPanel expenseCategoryBarChartPanel = new ExpenseCategoryBarChartPanel(
                     financeApp.getExpenseRecorder().getExpenses());
             frame.showPanel(expenseCategoryBarChartPanel);
+        } else if (e.getSource() == eventLogButton) {
+            EventLogPanel eventLogPanel = new EventLogPanel();
+            frame.showPanel(eventLogPanel);
         }
     }
 }

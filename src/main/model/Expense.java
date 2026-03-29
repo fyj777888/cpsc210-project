@@ -4,11 +4,14 @@ public class Expense {
     private double values;
     private String purpose;
     private String category;
+    private EventLog eventLog;
 
     public Expense(double values, String purpose, String category) {
         this.values = values;
         this.purpose = purpose;
         this.category = category;
+        eventLog = EventLog.getInstance();
+        eventLog.logEvent(new Event("Expense: $" + values));
     }
 
     // EFFECTS: returns the amount of money spent for this expense

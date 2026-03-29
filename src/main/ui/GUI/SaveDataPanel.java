@@ -3,9 +3,6 @@ package ui.gui;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-import model.FinanceApp;
-import ui.DataRecorder;
-
 public class SaveDataPanel extends JPanel {
     private MainMenuPanel mainMenuPanel;
     private JTextArea textArea;

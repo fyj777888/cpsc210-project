@@ -3,18 +3,16 @@ package ui.gui;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import model.FinanceApp;
-
 public class MyFrame extends JFrame {
     private JPanel currentPanel;
     
     public MyFrame() {
         super("Finance Tracker App");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(900, 675);
+        this.setSize(1000, 750);
         this.setLayout(null);
         MainMenuPanel mainMenuPanel = new MainMenuPanel(this);
-        mainMenuPanel.setBounds(0, 0, 900, 100);
+        mainMenuPanel.setBounds(0, 0, 1000, 100);
         this.add(mainMenuPanel);
         this.setVisible(true);
     }
@@ -24,7 +22,7 @@ public class MyFrame extends JFrame {
             this.remove(currentPanel);
         }
         currentPanel = panel;
-        currentPanel.setBounds(0, 100, 900, 650);
+        currentPanel.setBounds(0, 100, 1000, 650);
         this.add(currentPanel);
         this.revalidate();
         this.repaint();

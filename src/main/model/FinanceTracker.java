@@ -51,6 +51,7 @@ public class FinanceTracker {
     public void borrowMoney(double values) {
         loans = loans + values;
         this.addValues(values);
+        EventLog.getInstance().logEvent(new Event("Money borrowed: $" + values));
     }
 
     // MODIFIES: this
@@ -60,6 +61,7 @@ public class FinanceTracker {
     public void repayMoney(double values) {
         loans = loans - values;
         this.decreaseValues(values);
+        EventLog.getInstance().logEvent(new Event("Money repaid: $" + values));
     }
 
 }

@@ -1,11 +1,18 @@
 {
     "tracker": {
         "loans": 0,
-        "values": -3412
+        "values": -332
     },
-    "expenses": [{
-        "purpose": "312",
-        "values": 3412,
-        "category": "Food"
-    }]
+    "expenses": [
+        {
+            "purpose": "132",
+            "values": 132,
+            "category": "Food"
+        },
+        {
+            "purpose": "200",
+            "values": 200,
+            "category": "Rental"
+        }
+    ]
 }

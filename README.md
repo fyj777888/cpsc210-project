@@ -14,3 +14,16 @@ A *bulleted* list:
 An example of text with **bold** and *italic* fonts.  
 As a user, when I select the quit option from the application menu, I want to be reminded to save my ExpenseRecorder to file and have the option to do so or not.
 As a user, when I start the application, I want to be given the option to load my ExpenseRecorder from file.
+
+## Phase 4: Task 2
+
+Below is a representative sample of events that occur when the program runs:
+Sun Mar 29 16:45:01 PDT 2026
+Expense: $100.0
+-----------------------------------
+Sun Mar 29 16:45:18 PDT 2026
+Expense: $200.0
+-----------------------------------
+Sun Mar 29 16:45:22 PDT 2026
+Money borrowed: $500.0
+-----------------------------------

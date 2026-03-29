@@ -1,12 +1,9 @@
 package ui.gui;
 
-import java.awt.TextArea;
-
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import model.FinanceApp;
-import ui.DataRecorder;
 
 public class LoadDataPanel extends JPanel {
     private MainMenuPanel mainMenuPanel;

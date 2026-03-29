@@ -3,19 +3,15 @@ package ui.gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
-
 import model.Expense;
 import model.FinanceApp;
 
 public class ListSpentPanel extends JPanel implements ActionListener {
     private JComboBox<String> categoryBox;
     private JComboBox<String> subCategoryBox;
-    private JButton saveButton;
     private JTextArea textArea;
     private FinanceApp financeApp;
 
